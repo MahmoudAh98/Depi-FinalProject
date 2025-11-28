@@ -1,5 +1,7 @@
 # 🚀 CI/CD Pipeline on AWS EKS Using Jenkins, GitHub Webhooks & Kaniko
 
+![CI/CD Demo](final-demo.gif)
+
 ## 📋 Overview
 
 This project demonstrates a complete **CI/CD pipeline** deployed on AWS infrastructure:
