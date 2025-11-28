@@ -1,5 +1,6 @@
 ## 📂 Project Structure
 
+```
 .
 ├── **k8s**
 │   ├── app-namespace.yaml
@@ -20,4 +21,5 @@
     ├── terraform.tfstate
     ├── terraform.tfstate.backup
     └── vpc.tf
+```
 
