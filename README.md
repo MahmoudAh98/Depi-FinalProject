@@ -2,7 +2,7 @@
 
 ```
 .
-├── **k8s**
+├── k8s
 │   ├── app-namespace.yaml
 │   ├── jenkins-app-sa.yaml
 │   ├── jenkins-namespace.yaml
@@ -12,7 +12,7 @@
 │   ├── setup.sh
 │   └── StorageClass-EBS.yaml
 ├── README.md
-└── **terraform**
+└── terraform
     ├── aws_provider.tf
     ├── ebs_addon.tf
     ├── ec2.tf
