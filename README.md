@@ -275,3 +275,53 @@ The output will display the external IP or LoadBalancer URL to access your appli
 - Kaniko eliminates the need for Docker daemon, making builds more secure in Kubernetes
 
 ---
+
+## 🚮 Cleanup Guide
+
+To avoid ongoing AWS charges, follow these steps to cleanly remove all resources.
+
+---
+
+### Step 1: Delete Kubernetes Resources
+
+SSH into your EC2 instance and remove all Kubernetes resources:
+```bash
+cd k8s/
+kubectl delete -f .
+```
+
+---
+
+### Step 2: Destroy Terraform Infrastructure
+
+From your local machine, navigate to the terraform directory and destroy all resources:
+```bash
+cd terraform/
+terraform destroy --auto-approve
+```
+
+---
+
+### Step 3: Verify Complete Cleanup
+
+Check the AWS Console to ensure all resources have been deleted:
+
+- **VPC Dashboard** → Verify VPC, subnets, and IGW are deleted
+- **EC2 Dashboard** → Check for instances, volumes, and load balancers
+- **EKS Console** → Confirm cluster is deleted
+
+---
+
+### Step 4: Remove GitHub Webhook
+
+If you want to completely clean up:
+
+1. Go to your GitHub repository
+2. Navigate to **Settings** → **Webhooks**
+3. Delete the webhook pointing to your Jenkins instance
+
+---
+
+### ✅ Cleanup Complete
+
+All AWS resources and associated configurations have been removed.
