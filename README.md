@@ -19,25 +19,45 @@ This project demonstrates a complete **CI/CD pipeline** deployed on AWS infrastr
 
 ```
 .
+├── Jenkinsfile
 ├── k8s/
-│   ├── app-namespace.yaml
-│   ├── jenkins-app-sa.yaml
-│   ├── jenkins-namespace.yaml
-│   ├── jenkins-pod.yaml
-│   ├── jenkins-pvc.yaml
-│   ├── jenkins-service.yaml
-│   ├── setup.sh
-│   └── StorageClass-EBS.yaml
-├── terraform/
-│   ├── aws_provider.tf
-│   ├── ebs_addon.tf
-│   ├── ec2.tf
-│   ├── eks.tf
-│   ├── sec_group.tf
-│   ├── terraform.tfstate
-│   ├── terraform.tfstate.backup
-│   └── vpc.tf
-└── README.md
+│   ├── app-namespace.yaml
+│   ├── jenkins-app-sa.yaml
+│   ├── jenkins-namespace.yaml
+│   ├── jenkins-pod.yaml
+│   ├── jenkins-pvc.yaml
+│   ├── jenkins-service.yaml
+│   ├── setup.sh
+│   └── StorageClass-EBS.yaml
+├── README.md
+└── terraform/
+    ├── main.tf
+    ├── modules/
+    │   ├── ebs_csi/
+    │   │   ├── main.tf
+    │   │   ├── outputs.tf
+    │   │   └── variables.tf
+    │   ├── ec2/
+    │   │   ├── main.tf
+    │   │   ├── outputs.tf
+    │   │   └── variables.tf
+    │   ├── eks/
+    │   │   ├── main.tf
+    │   │   ├── outputs.tf
+    │   │   └── variables.tf
+    │   ├── security_group/
+    │   │   ├── main.tf
+    │   │   ├── outputs.tf
+    │   │   └── variables.tf
+    │   └── vpc/
+    │       ├── main.tf
+    │       ├── outputs.tf
+    │       └── variables.tf
+    ├── outputs.tf
+    ├── terraform.tfstate
+    ├── terraform.tfstate.backup
+    ├── terraform.tfvars
+    └── variables.tf
 ```
 
 ---
@@ -57,7 +77,7 @@ This project demonstrates a complete **CI/CD pipeline** deployed on AWS infrastr
 
 #### Kubernetes Cluster
 - **EKS Cluster:** Named `EKS_Cluster`
-- **Worker Node Group:** Named `nodes-group` with 2 worker nodes
+- **Worker Node Group:** Named `EKS_Cluster-nodes-group` with 2 worker nodes
 - **EBS CSI Driver Addon:** For dynamic Kubernetes Persistent Volumes
 
 #### Management
@@ -74,7 +94,7 @@ This project demonstrates a complete **CI/CD pipeline** deployed on AWS infrastr
 cd terraform/
 terraform init
 terraform plan
-terraform apply -auto-approve
+terraform apply --auto-approve
 ```
 
 ### Step 2: Configure AWS CLI on EC2 Instance
@@ -192,11 +212,11 @@ The pipeline runs in a Kubernetes pod with multiple containers:
 
 ### Pipeline Stages
 
-#### 1️⃣ Setup Docker Credentials
-Configures Kaniko with Docker Hub credentials stored in Jenkins
-
-#### 2️⃣ Source Code Checkout
+#### 1️⃣ Source Code Checkout 
 Checks out application code from Git SCM
+
+#### 2️⃣ Setup Docker Credentials
+Configures Kaniko with Docker Hub credentials stored in Jenkins
 
 #### 3️⃣ Build Image & Push to Docker Hub
 - Uses Kaniko to build Docker image from Dockerfile

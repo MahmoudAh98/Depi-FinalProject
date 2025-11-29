@@ -12,15 +12,6 @@ crash.*.log
 # Ignore the hidden terraform working directory
 .terraform/
 
-# Ignore sensitive variable files 
-*.tfvars
-*.tfvars.json
-
-# Ignore local override files
-override.tf
-override.tf.json
-*_override.tf
-*_override.tf.json
 
 # ignore script folder
 script/
